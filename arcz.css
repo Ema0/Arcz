@@ -1,0 +1,191 @@
+@namespace html url(http://www.w3.org/1999/xhtml);
+@namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+/*
+    Author: Zemnl
+
+    Description: General tweaks for Arc theme
+
+	This theme uses PragmataPro by default, in case you don't have it you can change fonts by editing the --tab-fonts and --url-fonts variables.
+	This theme has been created by heavly editing Twily's
+*/
+
+:root {
+    /* TAB VARIABLES */
+
+    --tab-height: 24px; --tab-icon-size: 16px;
+    --tab-fonts: "PragmataPro","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; 	--tab-font-size: 10pt;
+    --tab-text-align: center; /* left | center | right */
+
+    /* URL VARIABLES */
+    --url-background: var(--bg-light); --url-color: var(--fg-dark);
+    --url-height: 24px; --url-right-margin: 6px;
+    --url-fonts: "PragmataPro","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; 	--url-font-size: 10pt;
+    --url-text-align: left; /* left | center | right */
+    --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */
+}
+
+
+@-moz-document url(chrome://browser/content/browser.xul) {
+    /* URL-BAR */
+    #back-button, #forward-button, #back-button *, #forward-button *,
+    #PanelUI-button, #bookmarks-menu-button, #downloads-button,#stylish-toolbar-button, #abp-toolbarbutton,.urlbar-history-dropmarker,
+    #notification-popup-box, #new-tab-button, #private-browsing-indicator, #search-container,
+    #pocket-button, #loop-button, #social-share-button, #window-controls
+    /*#alltabs-button, #tabview-button, .tab-icon-image, .tab-icon-image:not([pinned])*/ { display: none !important; }
+
+    * { box-sizing: border-box !important; }
+
+   #nav-bar {
+
+        position: var(--url-position) !important; bottom: 0 !important;
+        width: 100% !important; height: var(--url-height) !important;
+        margin: 0 !important; background: transparent !important;
+       margin-bottom: -7px!important;
+        margin-top:-1px!important; padding-top: 0px!important;  
+    }
+        #nav-bar-customization-target, #urlbar-container, #urlbar {
+            margin: 0 !important; padding: 0 !important;
+            width: 100% !important; height: 100% !important;
+            border-radius: 0 !important;
+        }
+            #nav-bar-customization-target {
+                position: relative !important; margin-top: 0px !important;margin-bottom: 2px!important; left: 0 !important; height: 100% !important;padding-top: 0!important; /* calc(100% - 1px) (bottom margin - height switch +/- to fix line) */
+            }
+                #urlbar {
+                    border: none !important; padding: 0 !important;
+                    background: var(--url-background) !important; color: var(--url-color) !important;
+                    font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;font-weight: bold;
+                    text-align: var(--url-text-align) !important;
+                    height: 100% !important;
+                }
+                /*#urlbar * { -moz-appearance: none !important; }*/
+
+                .urlbar-textbox-container .urlbar-input-box .textbox-input {
+                    height: var(--url-height) !important;
+                }
+
+
+   #identity-box{margin-top:1px!important;padding-top: 0!important;margin-bottom: 2px!important;padding-right: 5px!important;}
+    #identity-icon{margin-top:3px!important;}
+    #tracking-protection-icon{margin-top:3px!important;}
+    #connection-icon{margin-top:3px!important;}
+    #identity-icon-labels {margin-top: 4px!important;}
+    #bookmarks-menu-button{display: block!important;}
+ #navigator-toolbox:not([customizing]) #identity-box:not(:hover) #identity-icon-labels {
+  visibility: collapse !important;
+}
+
+    #urlbar-reload-button, #urlbar-stop-button {margin-top:1px!important;margin-right: 1px!important;padding-top: 0!important;margin-bottom: 2px!important;}
+    #back-button, #forward-button { display: block !important; vertical-align: middle!important;padding-top: 0!important;}
+    #back-button::before, #forward-button::before {
+        display: inline-block !important; position: absolute !important;
+        width: var(--url-height) !important; height: var(--url-height) !important; top: 0 !important;
+        text-align: center !important; line-height: var(--url-height) !important;
+    }
+
+    #back-button::before { content: "" !important; left: 5px !important; font-weight: bold!important;margin-top:1px!important;vertical-align: middle!important;}
+    #forward-button::before { content: "" !important; left: calc(var(--url-height) + 8px) !important; font-weight: bold!important;margin-top:1px!important;vertical-align: middle!important;}
+    #urlbar { padding-left: calc((var(--url-height) * 2) + 5px) !important;}
+
+    /* TABS */
+    tab {
+        font-family: var(--tab-fonts) !important;font-weight: bold;font-size: var(--tab-font-size);
+        height: var(--tab-height) !important; min-height: var(--tab-height) !important;
+        text-align: var(--tab-text-align) !important;
+        margin-top: 5px!important;
+    }
+    tab[pinned]{
+        margin-top: 7px!important;
+    }
+
+    .tabbrowser-tab .tab-label ,.tabbrowser-tab .tab-close-button,.tabbrowser-tab .tab-icon-sound{margin-bottom: 6px!important;}
+    .tabbrowser-tab .tab-throbber {margin-bottom: 6px!important;}
+   .tabbrowser-tab[fadein]:not([pinned]) { min-width: 100px !important; max-width: 200px /*100%*/ !important; }
+    .tabbrowser-tab[fadein][pinned] { min-width: 40px !important; max-width: 40px /*100%*/ !important; padding-left:3px!important;}
+    .tabbrowser-tab:not([pinned]) label { padding: 0 0 0 0 !important;}
+    #tabbrowser-tabs .tabbrowser-tab:not([pinned]) .tab-icon-image {
+       display: none!important;
+    }
+    .tabbrowser-tab .tab-label {position: relative!important;}
+    #tabbrowser-tabs .tabbrowser-tab[pinned] .tab-icon-image {
+       margin-bottom: 6px!important;
+        padding-right: 0px!important;
+    }
+
+     #TabsToolbar, #tabbrowser-tabs {
+        -moz-appearance: none !important;
+        height: 28px !important; min-height: 28px!important;
+        margin: 0px!important;
+    }
+
+    .tabbrowser-tab::before, .tabbrowser-tab::after { background: none !important; opacity: 1 !important; visibility: visible !important; }
+     #navigator-toolbox::after{ height: 2px !important;background: #F5F6F7 !important; border-bottom: solid!important; border-bottom-width: 1px!important;border-bottom-color: #d0d0d0!important;}
+  #tabbrowser-tabs .tabbrowser-tab[pinned] * {
+    background: none !important; 
+    margin-right:0px!important;
+    margin-left: 0px!important;
+    }
+    #tabbrowser-tabs .tabbrowser-tab[pinned]:hover {
+    background: #4d515b !important;
+    margin-right:0px!important;
+    margin-left: 0px!important;
+    }
+    #tabbrowser-tabs .tabbrowser-tab[selected="true"][pinned] {
+        background: #4d515b !important;
+        /*background: -moz-linear-gradient(bottom, rgba(245,246,247,0.95) 0%,rgba(245,246,247,0.50) 5%, rgba(245,246,247,0.10) 20%, rgba(245,246,247,0) 80%)!important;*/
+        width: 20px!important;
+
+    }
+    #tabbrowser-tabs .tabbrowser-tab[selected="true"][pinned]:hover {
+        /*background: #1a1b22 !important;*/
+        width: 20px!important;
+    }
+    .tabs-newtab-button  {
+        background: none !important;
+    }
+    .tabbrowser-tab[pinned] label  { display:none !important; }
+    .tab-background-start[pinned]{display: none!important;}
+    .tab-background-end[pinned] {display: none!important;}
+    #TabsToolbar::after { display: none !important; }
+
+    /* HIDE ORANGE MENU BUTTON */
+    #appmenu-toolbar-button, #appmenu-button-container { display: none !important; }
+
+    /* HIDE STATUS BAR */
+    #status-bar, #statusbar-display, statuspanel { display: initial !important;}
+
+.statuspanel-label
+    {
+    border: 1px solid rgba(55,55,55,.4) !important;
+
+    background: rgba(250, 250, 250, .75) !important;
+    color: #333!important;
+    }
+
+#liberator-statusline { margin-right: 10px !important;}
+}
+/* AGENT_SHEET */
+@-moz-document url-prefix(http://), url-prefix(https://), url-prefix(chrome://liberator/), url-prefix(file:///) {
+    /* SCROLLBAR */
+    scrollbar[orient="vertical"], scrollbar thumb[orient="vertical"],
+    scrollbar[orient="horizontal"], scrollbar thumb[orient="horizontal"] {
+        display: none !important; /* block | none (enable scrollbar) */
+    }
+
+    }
+
+/* background color around/behind pictures opened in firefox (require html namespace on top) */
+@-moz-document regexp("(https?://|file:///)(.*)\\.(jpeg|jpg|gif|png|apng|svg|bmp|webm|webp)") {
+    body { background: var(--bg-light) !important; }
+    img.decoded { background-color: transparent !important; }
+}
+
+
+/* About:Blank background */
+@-moz-document url(about:blank) {
+    html,body { background: var(--bg-light) !important; }
+}
+
+
+/*----- Fix for white flash on new tab -----*/
+tabbrowser tabpanels, #appcontent > #content { background: var(--bg-light) !important; }
