@@ -58,7 +58,10 @@
                     text-align: var(--url-text-align) !important;
                     height: 100% !important;
                 }
-                /*#urlbar * { -moz-appearance: none !important; }*/
+				#urlbar * ::-moz-selection {
+                    background: #90BBED;
+                    color: #f5f6f7;
+                 }
 
                 .urlbar-textbox-container .urlbar-input-box .textbox-input {
                     height: var(--url-height) !important;
